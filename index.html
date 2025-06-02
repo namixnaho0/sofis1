@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generador Sofis</title>
+    <style>
+      /* Fuente cute estilo cartoon */
+      @import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@500&display=swap");
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Fredoka", sans-serif;
+        background: #fff6fe;
+        color: #333;
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      header {
+        background-color: #e5d4ff;
+        color: #6b008b;
+        text-align: center;
+        padding: 15px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      h3 {
+        text-align: center;
+      }
+
+      .logo-titulo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .logo {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #b073d1;
+        background-color: #fff;
+      }
+
+      main {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .botones-dobles {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+      }
+      .formulario {
+        background: #f5eaff;
+        padding: 25px;
+        border-radius: 50px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+        max-width: 400px; /* o el valor que prefieras */
+      }
+
+      label {
+        font-weight: bold;
+        color: #a45fc2;
+      }
+
+      input,
+      select {
+        padding: 10px;
+        border: 2px solid #d2aaff;
+        border-radius: 10px;
+        font-size: 1em;
+        background: #fff;
+      }
+
+      input:focus,
+      select:focus {
+        outline: none;
+        border-color: #9c4ccc;
+      }
+
+      button {
+        background-color: #d68fff;
+        color: #fff;
+        font-weight: bold;
+        border: none;
+        padding: 12px;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #b259e5;
+      }
+
+      .contenedor-flex {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 100%;
+        padding: 20px;
+      }
+
+      #salida {
+        flex: 1 1 300px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 20px;
+        border: 2px dashed #cfa9f2;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        max-width: 400px;
+        word-wrap: break-word;
+      }
+      #salida.mostrar {
+        animation: aparecer 0.8s ease forwards;
+      }
+
+      @keyframes aparecer {
+        from {
+          opacity: 0;
+          transform: scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo-titulo">
+        <img src="logo.png" alt="Logo Sofía" class="logo" />
+        <h1>❀ 𝒮𝑜𝒻𝒾𝒶 𝑀𝑜𝓇𝑒𝓃𝑜 / 𝑅𝑒𝓋 ❀</h1>
+      </div>
+    </header>
+
+    <main>
+      <div class="contenedor-flex">
+        <section class="formulario">
+          <h3>GENERADOR</h3>
+
+          <label for="plat">Plataforma</label>
+          <div id="todo">
+            <select id="plat">
+              <option value="NETFLIX">Netflix</option>
+              <option value="DISNEY">Disney</option>
+              <option value="MAX">HBO/MAX</option>
+              <option value="PRIME">Prime</option>
+              <option value="VIX">Vix</option>
+              <option value="CRUNCHYROLL">Crunchyroll</option>
+              <option value="PARAMOUNT">Paramount</option>
+              <option value="Spotify">Spotify</option>
+            </select>
+          </div>
+
+          <label for="correo">Ingresa email</label>
+          <input type="email" id="correo" />
+
+          <label for="pass">Ingresa contraseña</label>
+          <input type="text" id="pass" />
+
+          <div class="botones-dobles">
+            <button id="btnc">Completa</button>
+            <button id="btnp">Perfil</button>
+          </div>
+
+          <label for="perfil" id="labelPerfil" style="display: none"
+            >Perfil No.</label
+          >
+          <select id="perfil" style="display: none">
+            <option value="P1">P1</option>
+            <option value="P2">P2</option>
+            <option value="P3">P3</option>
+            <option value="P4">P4</option>
+            <option value="P5">P5</option>
+            <option value="P6">P6</option>
+            <option value="P7">P7</option>
+          </select>
+          <div class="botones-dobles">
+            <button id="btn">Generar</button>
+            <button id="btnb">Limpiar</button>
+          </div>
+        </section>
+
+        <section id="salida">
+          <!-- Aquí aparecerán los resultados -->
+        </section>
+      </div>
+    </main>
+
+    <script src="sofi1.js"></script>
+  </body>
+</html>
