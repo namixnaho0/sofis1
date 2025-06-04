@@ -11,16 +11,25 @@ document.addEventListener("DOMContentLoaded", function () {
   const btnPerfil = document.getElementById("btnp");
   let modo = "completa"; // por defecto
 
+  function mostrarSeleccion(texto) {
+    salida.textContent = texto;
+    salida.classList.remove("mostrar");
+    void salida.offsetWidth; // reinicia animación
+    salida.classList.add("mostrar");
+  }
+
   btnCompleta.addEventListener("click", function () {
     modo = "completa";
     perfil.style.display = "none";
     labelPerfil.style.display = "none";
+    mostrarSeleccion("Se ha seleccionado: completa");
   });
 
   btnPerfil.addEventListener("click", function () {
     modo = "perfil";
     perfil.style.display = "block";
     labelPerfil.style.display = "block";
+    mostrarSeleccion("Se ha seleccionado: perfil");
   });
 
   function limpiarSalida() {
