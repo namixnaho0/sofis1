@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const perfil = document.getElementById("perfil");
   const labelPerfil = document.getElementById("labelPerfil");
   const salida = document.getElementById("salida");
+  const mensajeSeleccion = document.getElementById("mensajeSeleccion");
   const botonGenerar = document.getElementById("btn");
   const botonBorrar = document.getElementById("btnb");
   const btnCompleta = document.getElementById("btnc");
@@ -12,10 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let modo = "completa"; // por defecto
 
   function mostrarSeleccion(texto) {
-    salida.textContent = texto;
-    salida.classList.remove("mostrar");
-    void salida.offsetWidth; // reinicia animación
-    salida.classList.add("mostrar");
+    mensajeSeleccion.textContent = texto;
   }
 
   btnCompleta.addEventListener("click", function () {
