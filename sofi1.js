@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const contra = document.getElementById("pass");
   const perfil = document.getElementById("perfil");
   const labelPerfil = document.getElementById("labelPerfil");
+  const nombrePerfil = document.getElementById("nombrePerfil");
+  const labelNombrePerfil = document.getElementById("labelNombrePerfil");
   const salida = document.getElementById("salida");
   const mensajeSeleccion = document.getElementById("mensajeSeleccion");
   const botonGenerar = document.getElementById("btn");
@@ -20,6 +22,8 @@ document.addEventListener("DOMContentLoaded", function () {
     modo = "completa";
     perfil.style.display = "none";
     labelPerfil.style.display = "none";
+    nombrePerfil.style.display = "none";
+    labelNombrePerfil.style.display = "none";
     mostrarSeleccion("Se ha seleccionado: completa");
   });
 
@@ -27,6 +31,8 @@ document.addEventListener("DOMContentLoaded", function () {
     modo = "perfil";
     perfil.style.display = "block";
     labelPerfil.style.display = "block";
+    nombrePerfil.style.display = "block";
+    labelNombrePerfil.style.display = "block";
     mostrarSeleccion("Se ha seleccionado: perfil");
   });
 
@@ -39,8 +45,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const gp = plataforma.value;
     const gc = correo.value.trim();
     const gpass = contra.value.trim();
-    const gperf = perfil.value;
-    const lineaPerfil = modo === "completa" ? "🌟 Cuenta completa" : `👤 ${gperf}`;
+    const gperfNum = perfil.value;
+    const gperfNom = nombrePerfil.value.trim();
+    // Si hay nombre personalizado, usarlo; si no, usar perfil numérico
+    const perfilFinal = modo === "perfil" ? (gperfNom || gperfNum) : null;
+    const lineaPerfil = modo === "completa" ? "🌟 Cuenta completa" : `👤 ${perfilFinal}`;
+
     const hoy = new Date();
     const dia = hoy.getDate().toString().padStart(2, "0");
     const mes = (hoy.getMonth() + 1).toString().padStart(2, "0");
