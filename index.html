@@ -1,234 +1,192 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Servicios Daiki — Generador</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
-  :root{
-    --rosa-1:#ffdde1; /* fondo gradiente */
-    --rosa-2:#ee9ca7;
-    --card:#fff0f5;  /* contenedor */
-    --panel:#ffe6f0; /* panel izq */
-    --acento:#d63384; /* botones/acentos */
-    --borde:#ff99cc; /* bordes */
-    --texto:#5e2750; /* texto principal */
-    --texto-2:#a83279; /* texto panel/salida */
-  }
-  *{box-sizing:border-box}
-  body{
-    margin:0;
-    font-family:'Montserrat',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,sans-serif;
-    background:linear-gradient(135deg,var(--rosa-1) 0%,var(--rosa-2) 100%);
-    color:var(--texto);
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:1rem;
-  }
-  #contenedor-principal{
-    background:var(--card);
-    border-radius:26px;
-    box-shadow:0 10px 28px rgba(0,0,0,.15);
-    display:flex;flex-direction:row;
-    width:960px;max-width:100%;overflow:hidden;
-  }
-  #formulario-container,#salida-container{padding:1.5rem 2rem;width:50%}
-  #formulario-container{
-    background:var(--panel);
-    border-right:3px solid var(--borde);
-    display:flex;flex-direction:column;gap:1rem
-  }
-  #formulario-container h2{
-    font-weight:700;margin:0 0 .75rem;text-align:center;color:var(--acento);
-    text-shadow:1px 1px 2px #ffb3d9
-  }
-  input[type="text"]{
-    border-radius:14px;border:2px solid #ffb6c1;background:#fff;
-    padding:.75rem 1rem;font-size:1rem;outline-offset:2px;width:100%;
-    transition:border-color .25s, background .25s
-  }
-  input[type="text"]:focus{border-color:var(--acento);background:#ffd6eb}
-  #guia{
-    background:#ffd6eb;border-left:6px solid var(--borde);
-    border-radius:12px;padding:1rem 1.25rem;font-size:.92rem;line-height:1.45;color:var(--texto-2);
-    user-select:none
-  }
-  #salida-container{background:#fffafc;display:flex;flex-direction:column}
-  #salida{
-    white-space:pre-wrap;font-size:1rem;font-family:'Courier New',Courier,monospace;
-    padding:1rem;background:#ffe6f0;border-radius:16px;min-height:260px;
-    box-shadow:inset 0 0 10px #ffb3d9;color:var(--texto-2);overflow-y:auto;line-height:1.35
-  }
-  #selecciona{margin:.85rem 0 .5rem;text-align:center;font-weight:700;color:var(--acento);text-shadow:1px 1px 1px #ffcce0}
-  #perfilBtns{display:flex;justify-content:center;flex-wrap:wrap;gap:.5rem;margin:0 0 1rem}
-  #perfilBtns button{
-    background:#ffb3d9;border:none;border-radius:20px;padding:.5rem 1.1rem;font-weight:700;cursor:pointer;color:var(--texto);
-    box-shadow:0 3px 6px rgba(255,182,193,.5);transition:transform .05s ease, background .25s
-  }
-  #perfilBtns button:hover:not(.active){background:#ff99cc}
-  #perfilBtns button:active{transform:translateY(1px)}
-  #perfilBtns button.active{background:var(--acento);color:#fff;box-shadow:0 0 10px #a83279}
-  #copiarBtn{
-    align-self:center;background:var(--acento);color:#fff;font-weight:700;border:none;padding:.8rem 2rem;border-radius:26px;cursor:pointer;font-size:1rem;
-    box-shadow:0 6px 15px rgba(214,51,132,.5);transition:background .25s;margin-bottom:1rem
-  }
-  #copiarBtn:hover{background:#a83279}
+  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  /* Responsivo */
-  @media (max-width: 820px){
-    #contenedor-principal{flex-direction:column;width:100%}
-    #formulario-container,#salida-container{width:100%;padding:1rem;border-right:none}
-    #salida-container{border-top:3px solid var(--borde)}
-    #salida{min-height:200px}
-  }
+<style>
+body{
+  font-family: 'Segoe UI', sans-serif;
+  background:#111;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+}
+.container{
+  width:380px;
+}
+textarea, input{
+  width:100%;
+  margin-top:8px;
+  padding:10px;
+  border-radius:10px;
+  border:1px solid #333;
+  background:#000;
+  color:#fff;
+}
+button{
+  width:100%;
+  padding:12px;
+  margin-top:8px;
+  border:none;
+  border-radius:12px;
+  background:#ff4d88;
+  color:white;
+  cursor:pointer;
+}
+button:hover{
+  background:#e6005c;
+}
+.result{
+  margin-top:12px;
+  background:#000;
+  padding:12px;
+  border-radius:12px;
+  white-space:pre-line;
+  border:1px solid #333;
+}
+#numeroTexto{
+  margin-top:10px;
+  font-size:18px;
+  color:#00ffcc;
+  text-align:center;
+}
 </style>
 </head>
+
 <body>
-  <div id="contenedor-principal">
-    <div id="formulario-container">
-      <h2>🐾 Generador Daiki🐾</h2>
-      <div id="guia">
-        <strong>🌸 Guía rápida:</strong>
-        <ul>
-          <li><code>n</code>: Netflix</li>
-          <li><code>m</code>: Max</li>
-          <li><code>p</code>: Prime Video</li>
-          <li><code>pr</code>: Paramount+</li>
-          <li><code>v</code>: Vix</li>
-          <li><code>c</code>: Crunchyroll</li>
-          <li><code>d</code>: Disney+</li>
-        </ul>
-        <p>En "Tipo" escribe <code>c</code> para COMPLETA. Si no, elige perfil abajo 🐱.</p>
-      </div>
 
-      <input type="text" id="plataforma" placeholder="Plataforma (n, m, p, pr, v, c, d)" autocomplete="off" />
-      <input type="text" id="correo" placeholder="Correo" autocomplete="off" />
-      <input type="text" id="contrasena" placeholder="Contraseña" autocomplete="off" />
-      <input type="text" id="tipo" placeholder="Tipo (escribe 'c' para COMPLETA)" autocomplete="off" />
-    </div>
+<div class="container">
+<h2>🌸 LUNALI STORE 🌸</h2>
 
-    <div id="salida-container">
-      <div id="salida" aria-live="polite" role="region" aria-label="Resultado"></div>
-      <p id="selecciona">Selecciona el perfil 🐈</p>
-      <div id="perfilBtns" role="group" aria-label="Perfiles"></div>
-      <button id="copiarBtn" aria-label="Copiar texto generado">📋 Copiar todo</button>
-    </div>
-  </div>
+<textarea id="input" placeholder="Pega aquí el texto..."></textarea>
+
+<input id="correoNuevo" placeholder="Correo">
+<input id="password" placeholder="Contraseña">
+
+<button onclick="procesar()">Generar</button>
+<button onclick="copiar()">Copiar texto</button>
+<button onclick="enviarWhats()">Enviar a WhatsApp</button>
+<button onclick="copiarNumero()">Copiar número</button>
+
+<div id="numeroTexto"></div>
+
+<div class="result" id="output"></div>
+</div>
 
 <script>
-  const plataformaInput = document.getElementById('plataforma');
-  const correoInput = document.getElementById('correo');
-  const contrasenaInput = document.getElementById('contrasena');
-  const tipoInput = document.getElementById('tipo');
-  const salida = document.getElementById('salida');
-  const perfilBtns = document.getElementById('perfilBtns');
-  const copiarBtn = document.getElementById('copiarBtn');
 
-  let perfilSeleccionado = 'P1';
+function limpiarNumero(num){
+  if(!num) return "";
+  num = num.replace(/\D/g,"");
+  if(num.startsWith("52") && num.length > 10){
+    num = num.slice(2);
+  }
+  return num;
+}
 
-  const plataformas = {
-    n: '𝓝𝓔𝓣𝓕𝓛𝓘𝓧',
-    m: '𝓜𝓐𝓧 / 𝓗𝓑𝓞',
-    p: '𝓟𝓡𝓘𝓜𝓔',
-    pr: '𝓟𝓐𝓡𝓐𝓜𝓞𝓤𝓝𝓣',
-    v: '𝓥𝓘𝓧',
-    c: '𝓒𝓡𝓤𝓝𝓒𝓗𝓨𝓡𝓞𝓛𝓛',
-    d: '𝓓𝓘𝓢𝓝𝓔𝓨'
-  };
+function procesar(){
+  let text = document.getElementById("input").value;
 
-  function crearBotonesPerfil(max){
-    perfilBtns.innerHTML = '';
-    for(let i=1;i<=max;i++){
-      const btn = document.createElement('button');
-      btn.textContent = `🐱 P${i}`;
-      btn.dataset.perfil = `P${i}`;
-      if(i===1) btn.classList.add('active');
-      btn.addEventListener('click',()=>{
-        if(tipoInput.value.trim().toLowerCase()==='c') return;
-        document.querySelectorAll('#perfilBtns button').forEach(b=>b.classList.remove('active'));
-        btn.classList.add('active');
-        perfilSeleccionado = btn.dataset.perfil;
-        actualizarSalida();
-      });
-      perfilBtns.appendChild(btn);
-    }
+  if(!text){
+    alert("Pega texto primero");
+    return;
   }
 
-  function definirCantidadPerfiles(){
-    const cod = plataformaInput.value.trim().toLowerCase();
-    if(cod==='d') crearBotonesPerfil(7);
-    else if(cod==='p' || cod==='pr') crearBotonesPerfil(6);
-    else crearBotonesPerfil(5);
+  let limpio = text.replace(/(\d)([a-zA-Z])/g, "$1 $2");
+
+  // 📞 número
+  let numeros = limpio.match(/\d{10,13}/g);
+  let numeroFinal = numeros ? limpiarNumero(numeros[0]) : "";
+
+  document.getElementById("numeroTexto").innerText =
+    numeroFinal ? "📞 Número: " + numeroFinal : "❌ No detectado";
+
+  // 📧 correo (MEJORADO)
+  let correos = text.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g);
+  let correoCaida = "";
+  if(correos){
+    correoCaida = correos.sort((a,b)=>{
+      return b.split("@")[0].length - a.split("@")[0].length;
+    })[0];
   }
 
-  function interpretarPlataforma(cod){
-    return plataformas[cod] || '';
+  // 📅 fechas
+  let fechas = limpio.match(/\d{1,2}\/\d{1,2}\/\d{4}/g);
+  let fechaCompra = fechas ? fechas[1] : "";
+
+  let correoNuevo = document.getElementById("correoNuevo").value;
+  let password = document.getElementById("password").value;
+
+  let t = limpio.toLowerCase();
+
+  // 💳 plan
+  let plan = "";
+  if(/anual/i.test(limpio)){
+    plan = " - Anual";
   }
 
-  function plantillaTexto({correo,contrasena,perfilTexto}){
-return `╔═══🎀🐈‍⬛𝓢𝓮𝓻𝓿𝓲𝓬𝓲𝓸𝓼 𝓭𝓪𝓲𝓴𝓲 𝓢𝓵𝓹🐈‍⬛════╗
+  // 🎬 plataforma
+  let plataforma = "No detectado";
 
-📧 𝓒𝓸𝓻𝓻𝓮𝓸: ${correo}
-🔐 𝓒𝓸𝓷𝓽𝓻𝓪𝓼𝓮ñ𝓪: ${contrasena}
-👤 𝓟𝓮𝓻𝓯𝓲𝓵: ${perfilTexto}
+  if(/netflix/i.test(limpio)) plataforma = "Netflix";
+  else if(/prime|primevideo|amazon/i.test(limpio)) plataforma = "Prime Video";
+  else if(/disney/i.test(limpio)) plataforma = "Disney+";
+  else if(/vix/i.test(limpio)) plataforma = "Vix";
+  else if(/paramount/i.test(limpio)) plataforma = "Paramount+";
+  else if(/crunchy/i.test(limpio)) plataforma = "Crunchyroll";
+  else if(/spotify/i.test(limpio)) plataforma = "Spotify";
 
-⏰𝓖𝓪𝓻𝓪𝓷𝓽𝓲𝓪⏰
-𝟚𝟝 𝕕𝕚𝕒𝕤
+  let tipo = t.includes("perfil") ? "Perfil" : "Completa";
 
-╠════🐈‍⬛𝓡𝓮𝓰𝓵𝓪𝓼 𝓭𝓮 𝓖𝓪𝓻𝓪𝓷𝓽í𝓪 🐈‍⬛════╣
+  let hoy = new Date().toLocaleDateString("es-MX");
 
-🔮𝕋𝕀𝔼ℕ𝔼𝕊 𝕊𝕆𝕃𝕆 𝟙𝟘 𝕄𝕀ℕ𝕌𝕋𝕆𝕊 𝔸 ℙ𝔸ℝ𝕋𝕀ℝ 𝔻𝔼 𝕋𝕌 𝔼ℕ𝕋ℝ𝔼𝔾𝔸 ℙ𝔸ℝ𝔸 ℂℍ𝔼ℂ𝔸ℝ 𝕃𝔸 ℂ𝕌𝔼ℕ𝕋𝔸 𝕐 𝔼ℕ𝕍𝕀𝔸ℝ ℂℙ𝕋𝕌ℝ𝔸 𝔻𝔼 ℚ𝕌𝔼 ℙ𝕌𝔻𝕀𝕊𝕋𝔼 𝔸ℂℂ𝔼𝔻𝔼ℝ 𝕊𝕀 ℕ𝕆 𝕊𝔼ℝÁ ℝ𝔼ℙ𝕆ℝ𝕋𝔼, 𝕃𝕆𝕊 ℝ𝔼ℙ𝕆ℝ𝕋𝔼𝕊 𝕊𝔼 ℝ𝔼𝕊𝕌𝔼𝕃𝕍𝔼ℕ 𝔻𝔼 𝟚𝟜ℍℝ𝕊 𝔸 𝟟𝟚ℍℝ𝕊🔮
+let resultado =
+`✿✧ *LUNALI STORE* ✧✿
+✿ Garantia entregada: ${hoy}
+✧ ${plataforma}${plan} (${tipo})
 
-✨ℕ𝕆 ℂ𝔸𝕄𝔹𝕀𝔸ℝ𝕃𝔼 ℕ𝔸𝔻𝔸 𝔸 𝕃𝔸 ℂ𝕌𝔼ℕ𝕋𝔸 𝔼𝕏ℂ𝔼ℙ𝕋𝕆 𝕋𝕌 ℕ𝕆𝕄𝔹ℝ𝔼✨
+> CAIDA: ${correoCaida}
+✧ F.COMPRA: ${fechaCompra}
 
-> 🐈‍⬛ 𝓡𝓮𝓹𝓸𝓻𝓽𝓮𝓼: https://chat.whatsapp.com/FloVU8QEtQsHxregkgrUJb?mode=ems_copy_c
+✿✧ *REEMPLAZO* ✧✿
+✉ Correo: ${correoNuevo}
+✧ Contraseña: ${password}
 
-╚══════🐈‍⬛ 𝓖𝓻𝓪𝓬𝓲𝓪𝓼 𝓹𝓸𝓻 𝓽𝓾 𝓬𝓸𝓶𝓹𝓻𝓪 🐈‍⬛══════╝`;
+✿ Usar perfil asignado
+✧ Dudas con admin en turno`;
+
+  document.getElementById("output").innerText = resultado;
+}
+
+function copiar(){
+  navigator.clipboard.writeText(document.getElementById("output").innerText);
+}
+
+function copiarNumero(){
+  let texto = document.getElementById("numeroTexto").innerText;
+  let numero = texto.replace(/\D/g,"");
+  navigator.clipboard.writeText(numero);
+}
+
+// 🔥 FIX EMOJIS WHATSAPP
+function enviarWhats(){
+  let mensaje = document.getElementById("output").innerText;
+  let numero = document.getElementById("numeroTexto").innerText.replace(/\D/g,"");
+
+  if(!numero){
+    alert("No hay número");
+    return;
   }
 
-  function actualizarSalida(){
+  let url = `https://wa.me/52${numero}?text=${encodeURIComponent(mensaje)}`;
+  window.open(url, "_blank");
+}
 
-    const correo = (correoInput.value.trim() || '—');
-    const contrasena = (contrasenaInput.value.trim() || '—');
-    const tipo = tipoInput.value.trim().toLowerCase();
-    const perfilTexto = (tipo==='c') ? '𝓒𝓸𝓶𝓹𝓵𝓮𝓽𝓪' : perfilSeleccionado;
-
-    salida.textContent = plantillaTexto({correo,contrasena,perfilTexto});
-  }
-
-  function init(){
-    crearBotonesPerfil(5);
-    actualizarSalida(); // muestra algo desde el inicio
-  }
-
-  [plataformaInput, correoInput, contrasenaInput, tipoInput].forEach(el=>{
-    el.addEventListener('input', ()=>{
-      definirCantidadPerfiles();
-      if(tipoInput.value.trim().toLowerCase()==='c'){
-        perfilBtns.querySelectorAll('button').forEach(btn=>btn.classList.remove('active'));
-      }else{
-        if(!document.querySelector('#perfilBtns button.active')){
-          perfilSeleccionado='P1';
-          perfilBtns.querySelector('button')?.classList.add('active');
-        }
-      }
-      actualizarSalida();
-    })
-  })
-
-  copiarBtn.addEventListener('click',()=>{
-    if(!salida.textContent.trim()) return;
-    navigator.clipboard.writeText(salida.textContent).then(()=>{
-      copiarBtn.textContent='✅ Copiado!';
-      setTimeout(()=>copiarBtn.textContent='📋 Copiar todo',1800);
-    })
-  })
-
-  init();
 </script>
+
 </body>
 </html>
-
